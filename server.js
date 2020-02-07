@@ -5,7 +5,7 @@ const helmet = require('helmet')
 connectDB()
 
 const app = express()
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 5000
 // important to parse json req
 app.use(express.json({ extended: true }))
 // security
