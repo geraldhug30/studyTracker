@@ -3,6 +3,7 @@ import axios from 'axios'
 import setAuthToken from '../../components/utils/setAuthToken'
 import authReducer from './authReducer'
 import AuthContext from './authContext'
+
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
@@ -27,8 +28,9 @@ const AuthState = props => {
   // Load User
   const loadUser = async () => {
     // @todo - load user into global header
+
     if (localStorage.token) {
-      setAuthToken(localStorage.token)
+      await setAuthToken(localStorage.token)
     }
     try {
       const res = await axios.get('/api/auth')
@@ -56,6 +58,7 @@ const AuthState = props => {
       })
       loadUser()
     } catch (error) {
+      console.log(error)
       dispatch({
         type: REGISTER_FAIL,
         payload: error.response.data.msg
@@ -63,12 +66,13 @@ const AuthState = props => {
     }
   }
   // Login User
-  const login = async formData => {
+  const userLogin = async formData => {
     const config = {
       headers: {
         'Content-Type': 'application/json'
       }
     }
+
     try {
       const res = await axios.post('/api/auth', formData, config)
 
@@ -99,7 +103,7 @@ const AuthState = props => {
         error: state.error,
         loadUser,
         register,
-        login,
+        userLogin,
         logout,
         clearErrors
       }}

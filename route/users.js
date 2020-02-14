@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const config = require('config')
 
-const { check, validationResult, sanitize } = require('express-validator')
+const { check, validationResult } = require('express-validator')
 
 // @route   POST api/users
 // @desc    Register a user
@@ -37,7 +37,7 @@ router.post(
   async (req, res) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() })
+      return res.status(422).json({ msg: 'Invalid Input' })
     }
     const { name, email, password } = req.body
     console.log(password)

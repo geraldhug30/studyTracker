@@ -22,6 +22,21 @@ router.get('/', auth, async (req, res) => {
   }
 })
 
+// @route GET api/records/:id
+// @desc  Get Specific Records
+// @access Private
+
+router.get('/:id', auth, async (req, res) => {
+  try {
+    const records = await Records.findOne({ _id: req.params.id })
+    if (!records) res.send('No record Found')
+
+    res.json(records)
+  } catch (err) {
+    res.status(500).send('Server error')
+  }
+})
+
 // @route POST api/records
 // @desc  Create Records
 // @access Private
@@ -42,7 +57,7 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() })
     }
-    const { title, body, timeIn, timeOut } = req.body
+    const { title, body, timeIn, timeOut, duration } = req.body
 
     try {
       const records = new Records({
@@ -50,6 +65,7 @@ router.post(
         body,
         timeIn,
         timeOut,
+        duration,
         user: req.user.id
       })
       await records.save()
@@ -66,7 +82,7 @@ router.post(
 
 //id should be the record id in params /:id not user id
 router.put(
-  '/:id',
+  '/',
   [
     auth,
     check('title', 'Title is required')
@@ -84,32 +100,51 @@ router.put(
     // Valid updates only
     const updates = Object.keys(req.body)
     // [ 'name', 'password' ] - depend on user input
-    const allowedUpdates = ['title', 'body', 'timeIn', 'timeOut']
+    const allowedUpdates = [
+      '_id',
+      'title',
+      'body',
+      'timeIn',
+      'timeOut',
+      'duration',
+      'user',
+      'date',
+      '__v'
+    ]
     //return boolean check update to allowedUpdates using include
     const isValidUpdates = updates.every(update =>
       allowedUpdates.includes(update)
     )
     if (!isValidUpdates) {
+      console.log('validation error')
       return res.status(400).send({ msg: 'error updates' })
     }
     // update start
+
     try {
       const records = await Records.findOne({
-        _id: req.params.id,
-        users: req.user._id
+        _id: req.body._id,
+        user: req.user.id
       })
 
       if (!records) {
+        console.log(records)
         return res.status(500).send('error')
       }
 
       // from above updates update from existing client updates using forEach loops
-      updates.forEach(update => (records[update] = req.body[update]))
+      updates.forEach(update => {
+        return (records[update] = req.body[update])
+      })
+      console.log(records)
       // save updates
-      await records.save()
+      await records.save(err => {
+        console.log(err)
+      })
 
       res.status(200).send(records)
     } catch (err) {
+      console.log(err)
       return res.status(400).send(err)
     }
   }

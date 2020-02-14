@@ -18,6 +18,9 @@ const RecordSchema = mongoose.Schema({
   timeOut: {
     type: String
   },
+  duration: {
+    type: String
+  },
   date: {
     type: Date,
     default: Date.now

@@ -40,7 +40,7 @@ router.post(
   async (req, res) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() })
+      return res.status(422).json({ msg: 'Invalid Credential' })
     }
 
     const { email, password } = req.body
