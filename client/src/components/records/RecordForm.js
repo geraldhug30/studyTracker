@@ -19,7 +19,7 @@ const RecordForm = () => {
     timeOut,
     setTimeIn,
     setTimeOut,
-    storeData,
+
     clearAll,
     addData,
     updateData
@@ -39,8 +39,9 @@ const RecordForm = () => {
     }
   }, [record, timeIn, timeOut, records, title, timeInV, timeOutV])
 
-  const onChange = e =>
+  const onChange = e => {
     setRecords({ ...records, [e.target.name]: e.target.value })
+  }
 
   const onSubmit = e => {
     e.preventDefault()
@@ -54,7 +55,7 @@ const RecordForm = () => {
       timeIn,
       timeOut
     }
-    storeData(data)
+
     if (record.length !== 0) {
       // only body and title will be updated
       record.title = records.title
@@ -127,13 +128,12 @@ const RecordForm = () => {
                   Stop
                 </Button>
               )}
-
               {timeIn.length !== 0 && (
                 <Button type='submit' onClick={clearTime} className='btn-dark'>
                   Clear
                 </Button>
               )}
-              {timeIn.length !== 0 && (
+              {timeIn.length !== 0 && timeOut.length !== 0 && (
                 <Button type='submit' className='btn-primary'>
                   Submit
                 </Button>

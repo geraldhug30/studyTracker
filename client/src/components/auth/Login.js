@@ -23,8 +23,9 @@ const Login = props => {
 
   const onSubmit = e => {
     e.preventDefault()
-    if (!email || !password)
+    if (!email || !password) {
       alertContext.setAlert('Please fill all fields', 'danger')
+    }
     userLogin({ email, password })
   }
   const divStyle = {
