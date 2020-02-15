@@ -1,0 +1,20 @@
+.image {
+  /* The image used */
+  background-image: url('https://png.pngtree.com/thumb_back/fw800/back_our/20190619/ourmid/pngtree-taobao-mediterranean-hot-air-balloon-image_136417.jpg');
+
+  /* Full height */
+  max-width: 100%;
+  height: auto;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+@media only screen and (max-width: 400px) {
+  .image {
+    background-color: #fff;
+    background-size: 120% 90%;
+  }
+}

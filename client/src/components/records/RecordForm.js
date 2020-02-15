@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useContext, useEffect } from 'react'
 import TimeContext from '../../context/time/timeContext'
-
+import Alerts from '../layouts/Alerts'
 import { Button, ButtonGroup } from 'react-bootstrap'
 
 const RecordForm = () => {
@@ -74,6 +74,7 @@ const RecordForm = () => {
 
   return (
     <Fragment>
+      <Alerts />
       {record.length !== 0 && <h3 style={{ color: 'red' }}>Edit Record</h3>}
       <form onSubmit={onSubmit} className='main-form' autoComplete='off'>
         <label htmlFor='inputEnd'>Title: </label>
@@ -89,7 +90,7 @@ const RecordForm = () => {
         <label htmlFor='inputStart'>Time Start:</label>
         <input
           id='inputStart'
-          className='form-control text-center'
+          className='form-control text-center text-success'
           type='text'
           name='timeInV'
           value={timeInV}
@@ -98,7 +99,7 @@ const RecordForm = () => {
         <label htmlFor='inputEnd'>Time End:</label>
         <input
           id='inputEnd'
-          className='form-control text-center'
+          className='form-control text-center text-danger'
           name='timeOutV'
           type='text'
           value={timeOutV}

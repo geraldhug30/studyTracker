@@ -54,23 +54,23 @@ const RecordResult = props => {
           </thead>
           <tbody>
             <tr>
-              <td>Time In:</td>
+              <th>Time In:</th>
               <td>{timeIn}</td>
             </tr>
             <tr>
-              <td className='text-nowrap'>Time Out:</td>
+              <th className='text-nowrap'>Time Out:</th>
               <td>{timeOut}</td>
             </tr>
             <tr>
-              <td>Duration:</td>
+              <th>Duration:</th>
               <td>{minutes} minutes</td>
             </tr>
             <tr>
-              <td className='text-nowrap'>Date Created:</td>
+              <th className='text-nowrap'>Date Created:</th>
               <td>{result}</td>
             </tr>
             <tr>
-              <td>Body</td>
+              <th>Body</th>
               <td>{body}</td>
             </tr>
             <tr>

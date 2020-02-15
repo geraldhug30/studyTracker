@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import AuthContext from '../../context/auth/authContext'
+import Alerts from '../layouts/Alerts'
 import AlertContext from '../../context/alert/alertContext'
 const Login = props => {
   const authContext = useContext(AuthContext)
@@ -14,8 +15,8 @@ const Login = props => {
   const { email, password } = user
 
   useEffect(() => {
-    if (isAuthenticated) return props.history.push('/')
-    if (error) setAlert(error, 'danger')
+    if (isAuthenticated) props.history.push('/')
+    if (error === 'Invalid Credential') setAlert(error, 'danger')
     // eslint-disable-next-line
   }, [isAuthenticated, error])
 
@@ -24,8 +25,9 @@ const Login = props => {
   const onSubmit = e => {
     e.preventDefault()
     if (!email || !password) {
-      alertContext.setAlert('Please fill all fields', 'danger')
+      return setAlert('Please fill all fields', 'danger')
     }
+
     userLogin({ email, password })
   }
   const divStyle = {
@@ -37,6 +39,7 @@ const Login = props => {
   return (
     <div style={divStyle} className='mt-5'>
       <Form onSubmit={onSubmit}>
+        <Alerts />
         <Form.Group controlId='formBasicEmail'>
           <Form.Label>Email address</Form.Label>
           <Form.Control

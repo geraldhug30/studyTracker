@@ -2,6 +2,8 @@ import React, { useState, useContext, useEffect } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import AuthContext from '../../context/auth/authContext'
 import AlertContext from '../../context/alert/alertContext'
+import Alerts from '../layouts/Alerts'
+
 const Register = props => {
   const authContext = useContext(AuthContext)
   const alertContext = useContext(AlertContext)
@@ -10,7 +12,8 @@ const Register = props => {
   const { setAlert } = alertContext
   useEffect(() => {
     if (isAuthenticated) props.history.push('/')
-    if (error) setAlert(error, 'danger')
+    if (error === 'Users is already exists')
+      setAlert('User is already register', 'danger')
     // eslint-disable-next-line
   }, [isAuthenticated, error])
 
@@ -30,6 +33,10 @@ const Register = props => {
       setAlert('password not match', 'light')
       return
     }
+    console.log(password.length)
+    if (password.length < 5)
+      return setAlert('Password must be 5 character or more...', 'danger')
+    if (error) return setAlert(error, 'danger')
     register({ name, email, password })
   }
 
@@ -48,6 +55,7 @@ const Register = props => {
   return (
     <div style={divStyle}>
       <h2 className='text-center m-4'>Register</h2>
+      <Alerts />
       <Form
         className='text-light bg-dark'
         style={formStyle}

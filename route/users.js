@@ -40,7 +40,7 @@ router.post(
       return res.status(422).json({ msg: 'Invalid Input' })
     }
     const { name, email, password } = req.body
-    console.log(password)
+
     try {
       let user = await User.findOne({ email })
       if (user) {

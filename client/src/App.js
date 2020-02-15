@@ -8,7 +8,6 @@ import AlertState from './context/alert/AlertState'
 import Login from './components/auth/Login'
 import Register from './components/auth/Register'
 import MainNav from './components/layouts/MainNav'
-import Alerts from './components/layouts/Alerts'
 import PrivateRoute from './components/routing/PrivateRoute'
 import setAuthToken from './components/utils/setAuthToken'
 import RecordResult from './components/records/RecordResult'
@@ -23,7 +22,7 @@ function App() {
           <Container fluid>
             <Router>
               <MainNav />
-              <Alerts />
+
               <Switch>
                 <PrivateRoute exact path='/' component={Home} />
                 <Route exact path='/login' component={Login} />
