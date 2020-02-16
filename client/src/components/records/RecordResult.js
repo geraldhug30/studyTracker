@@ -6,6 +6,9 @@ import AlertContext from '../../context/alert/alertContext'
 import AuthContext from '../../context/auth/authContext'
 
 import Spinner from '../../components/layouts/Spinner'
+
+var HtmlToReactParser = require('html-to-react').Parser
+
 const RecordResult = props => {
   const timeContext = useContext(TimeContext)
   const authContext = useContext(AuthContext)
@@ -42,6 +45,9 @@ const RecordResult = props => {
   // convert duration to minute
   const minutes = Math.floor(duration / 60)
 
+  var htmlToReactParser = new HtmlToReactParser()
+  var reactElement = htmlToReactParser.parse(body)
+
   return (
     <Container>
       {title ? (
@@ -71,7 +77,7 @@ const RecordResult = props => {
             </tr>
             <tr>
               <th>Body</th>
-              <td>{body}</td>
+              <td>{reactElement}</td>
             </tr>
             <tr>
               <td>

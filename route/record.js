@@ -89,10 +89,6 @@ router.put(
       .notEmpty()
       .trim()
       .escape(),
-    check('body', 'Please Enter Body Context')
-      .notEmpty()
-      .trim()
-      .escape(),
     check('timeIn', 'Require TimeIn').notEmpty(),
     check('timeOut', 'Require TimeOut').notEmpty()
   ],

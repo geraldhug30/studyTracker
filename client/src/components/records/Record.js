@@ -29,7 +29,7 @@ const Record = () => {
   }
 
   return (
-    <div style={{ overflow: 'auto', height: '400px' }}>
+    <div style={{ overflow: 'auto', height: '510px' }}>
       <h3>History</h3>
       {records.length !== 0 &&
         records.map(record => <RecordItem props={record} key={record._id} />)}

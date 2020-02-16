@@ -2,7 +2,9 @@ import React, { Fragment, useState, useContext, useEffect } from 'react'
 import TimeContext from '../../context/time/timeContext'
 import Alerts from '../layouts/Alerts'
 import { Button, ButtonGroup } from 'react-bootstrap'
-
+import CKEditor from '@ckeditor/ckeditor5-react'
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+import './CKeditor.css'
 const RecordForm = () => {
   const [records, setRecords] = useState({
     title: '',
@@ -107,14 +109,17 @@ const RecordForm = () => {
         />
 
         <label htmlFor='inputComment'>Notes:</label>
-        <textarea
-          id='inputComment'
-          className='form-control'
-          rows='5'
-          name='body'
-          onChange={onChange}
-          value={body}
-          required
+        <CKEditor
+          editor={ClassicEditor}
+          data={body}
+          onInit={editor => {
+            // You can store the "editor" and use when it is needed.
+            console.log('Editor is ready to use!', editor)
+          }}
+          onChange={(event, editor) => {
+            const data = editor.getData()
+            records.body = data
+          }}
         />
 
         <div className='d-flex flex-column'>
