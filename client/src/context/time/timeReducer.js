@@ -39,7 +39,8 @@ export default (state, action) => {
     case GET_STORE_DATA:
       return {
         ...state,
-        timeIn: action.payload.timeIn
+        timeIn: action.payload.timeIn,
+        timeOut: action.payload.timeOut
       }
 
     case UPDATE_DATA:

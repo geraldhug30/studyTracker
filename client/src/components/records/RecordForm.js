@@ -52,11 +52,19 @@ const RecordForm = () => {
     setRecords({ ...records, [e.target.name]: e.target.value })
   }
 
-  if (timeIn.length !== 0) {
+  if (timeIn.length !== 0 && timeOut.length === 0) {
     storeData({
       title,
       body,
-      timeIn: records.timeInV
+      timeIn,
+      timeOut: ''
+    })
+  } else if (timeIn.length !== 0 && timeOut.length !== 0) {
+    storeData({
+      title,
+      body,
+      timeIn,
+      timeOut
     })
   }
 

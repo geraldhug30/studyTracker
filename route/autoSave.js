@@ -25,7 +25,15 @@ router.post('/', auth, async (req, res) => {
   // Valid updates only
   const updates = Object.keys(req.body)
   // [ 'name', 'password' ] - depend on user input
-  const allowedUpdates = ['_id', 'title', 'body', 'timeIn', 'user', '__v']
+  const allowedUpdates = [
+    '_id',
+    'title',
+    'body',
+    'timeIn',
+    'timeOut',
+    'user',
+    '__v'
+  ]
   //return boolean check update to allowedUpdates using include
   const isValidUpdates = updates.every(update =>
     allowedUpdates.includes(update)

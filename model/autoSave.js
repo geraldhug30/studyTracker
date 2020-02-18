@@ -11,6 +11,10 @@ const AutoSave = mongoose.Schema({
     type: String,
     strict: false
   },
+  timeOut: {
+    type: String,
+    strict: false
+  },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user'

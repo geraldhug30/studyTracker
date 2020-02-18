@@ -27,7 +27,7 @@ const TimeState = props => {
     date: today,
     time: null,
     timeIn: '',
-    timeOut: [],
+    timeOut: '',
     duration: null,
     collection: [],
     records: [],
