@@ -19,6 +19,7 @@ app.use(function(req, res, next) {
 app.use('/api/users', require('./route/users'))
 app.use('/api/records', require('./route/record'))
 app.use('/api/auth', require('./route/auth'))
+app.use('/api/autoSave', require('./route/autoSave'))
 
 const path = require('path')
 // Serve static assets in production

@@ -9,7 +9,8 @@ import {
   GET_DATA,
   GET_SPECIFIC_DATA,
   DELETE_RECORD,
-  UPDATE_DATA
+  UPDATE_DATA,
+  GET_STORE_DATA
 } from '../types'
 
 export default (state, action) => {
@@ -31,10 +32,14 @@ export default (state, action) => {
       }
 
     case STORE_DATA:
-      localStorage.setItem('storeData', action.payload)
       return {
         ...state,
         collection: action.payload
+      }
+    case GET_STORE_DATA:
+      return {
+        ...state,
+        timeIn: action.payload.timeIn
       }
 
     case UPDATE_DATA:
@@ -71,7 +76,8 @@ export default (state, action) => {
         ...state,
         timeIn: [],
         timeOut: [],
-        record: []
+        record: [],
+        collection: []
       }
     case DELETE_RECORD:
       return {

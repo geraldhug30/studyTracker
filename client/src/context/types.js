@@ -19,7 +19,7 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAIL = 'LOGIN_FAIL'
 export const LOGOUT = 'LOGOUT'
 export const CLEAR_ERRORS = 'CLEAR_ERRORS'
-
+export const GET_STORE_DATA = 'GET_STORE_DATA'
 export const DATE_NOW = 'DATE_NOW'
 export const TIME_NOW = 'TIME_NOW'
 export const GET_TIME_IN = 'GET_TIME_IN'

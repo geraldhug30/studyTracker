@@ -21,6 +21,9 @@ const RecordSchema = mongoose.Schema({
   duration: {
     type: String
   },
+  privacy: {
+    type: Boolean
+  },
   date: {
     type: Date,
     default: Date.now

@@ -16,21 +16,26 @@ const RecordForm = () => {
   const timeContext = useContext(TimeContext)
 
   let {
+    collection,
     record,
     timeIn,
     timeOut,
     setTimeIn,
     setTimeOut,
-
+    storeData,
     clearAll,
     addData,
-    updateData
+    updateData,
+    getLocalData,
+    setStoreData
   } = timeContext
 
-  const { title, body, timeInV, timeOutV } = records
+  let { title, body, timeInV, timeOutV } = records
 
   useEffect(() => {
-    if (record.length !== 0 && title === '') {
+    if (collection.length === 0 && record.length === 0) {
+      getLocalData()
+    } else if (record.length !== 0 && title === '') {
       records.title = record.title
       records.timeInV = record.timeIn
       records.timeOutV = record.timeOut
@@ -39,10 +44,26 @@ const RecordForm = () => {
       records.timeInV = timeIn
       records.timeOutV = timeOut
     }
-  }, [record, timeIn, timeOut, records, title, timeInV, timeOutV])
+
+    // eslint-disable-next-line
+  }, [record, timeIn, timeOut, records, title, timeInV, timeOutV, collection])
 
   const onChange = e => {
     setRecords({ ...records, [e.target.name]: e.target.value })
+  }
+
+  if (timeIn.length !== 0) {
+    storeData({
+      title,
+      body,
+      timeIn: records.timeInV
+    })
+  }
+
+  const restoreData = () => {
+    setStoreData()
+    records.title = collection.title
+    records.body = collection.body
   }
 
   const onSubmit = e => {
@@ -51,6 +72,7 @@ const RecordForm = () => {
     if (body === '' || title === '' || timeIn === '' || timeOut === '') {
       console.log('body and title needed')
     }
+
     const data = {
       title,
       body,
@@ -126,9 +148,16 @@ const RecordForm = () => {
           {record.length === 0 ? (
             <ButtonGroup className='m-3'>
               {timeIn.length === 0 ? (
-                <Button className='btn-success' onClick={setTimeIn}>
-                  Start
-                </Button>
+                <Fragment>
+                  <Button className='btn-success' onClick={setTimeIn}>
+                    Start
+                  </Button>
+                  {collection.length !== 0 && (
+                    <Button className='btn-primary' onClick={restoreData}>
+                      Restore
+                    </Button>
+                  )}
+                </Fragment>
               ) : (
                 <Button className='btn-danger' onClick={setTimeOut}>
                   Stop

@@ -14,7 +14,8 @@ import {
   GET_DATA,
   GET_SPECIFIC_DATA,
   DELETE_RECORD,
-  UPDATE_DATA
+  UPDATE_DATA,
+  GET_STORE_DATA
 } from '../types'
 import { date } from '../../components/DateAndTime'
 
@@ -25,7 +26,7 @@ const TimeState = props => {
   const initialState = {
     date: today,
     time: null,
-    timeIn: [],
+    timeIn: '',
     timeOut: [],
     duration: null,
     collection: [],
@@ -130,12 +131,56 @@ const TimeState = props => {
       payload: error
     })
   }
+  // local store data
+  const getLocalData = async () => {
+    try {
+      const res = await axios.get('/api/autoSave')
+      dispatch({
+        type: STORE_DATA,
+        payload: res.data
+      })
+    } catch (error) {
+      dispatch({
+        type: RECORD_ERROR,
+        payload: error
+      })
+    }
+  }
+  const setStoreData = async () => {
+    try {
+      const res = await axios.get('/api/autoSave')
+      dispatch({
+        type: GET_STORE_DATA,
+        payload: res.data
+      })
+    } catch (error) {
+      dispatch({
+        type: RECORD_ERROR,
+        payload: error
+      })
+    }
+  }
+
   //local save data
-  const storeData = data => {
-    dispatch({
-      type: STORE_DATA,
-      payload: data
-    })
+  const storeData = async data => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+    try {
+      const res = await axios.post('/api/autoSave', data, config)
+
+      dispatch({
+        type: STORE_DATA,
+        payload: res.data
+      })
+    } catch (error) {
+      dispatch({
+        type: RECORD_ERROR,
+        payload: error
+      })
+    }
   }
   const deleteItem = async id => {
     try {
@@ -164,7 +209,8 @@ const TimeState = props => {
         records: state.records,
         record: state.record,
         loading: state.loading,
-
+        bodyA: state.body,
+        titleA: state.title,
         setTime,
         setTimeIn,
         setTimeOut,
@@ -174,7 +220,9 @@ const TimeState = props => {
         getData,
         getSpecificData,
         deleteItem,
-        updateData
+        updateData,
+        getLocalData,
+        setStoreData
       }}
     >
       {props.children}
