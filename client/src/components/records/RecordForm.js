@@ -8,6 +8,7 @@ import './CKeditor.css'
 const RecordForm = () => {
   const [records, setRecords] = useState({
     title: '',
+    privacy: 'public',
     timeInV: '',
     timeOutV: '',
     body: ''
@@ -30,41 +31,58 @@ const RecordForm = () => {
     setStoreData
   } = timeContext
 
-  let { title, body, timeInV, timeOutV } = records
+  let { title, body, timeInV, timeOutV, privacy } = records
 
   useEffect(() => {
     if (collection.length === 0 && record.length === 0) {
+      // get autoSave data and put it on collection contexts
       getLocalData()
     } else if (record.length !== 0 && title === '') {
+      // for editing
       records.title = record.title
       records.timeInV = record.timeIn
       records.timeOutV = record.timeOut
       records.body = record.body
+      records.privacy = record.privacy
     } else {
       records.timeInV = timeIn
       records.timeOutV = timeOut
+      records.privacy = privacy
     }
 
     // eslint-disable-next-line
-  }, [record, timeIn, timeOut, records, title, timeInV, timeOutV, collection])
+  }, [
+    record,
+    timeIn,
+    timeOut,
+    records,
+    title,
+    timeInV,
+    timeOutV,
+    collection,
+    privacy
+  ])
 
   const onChange = e => {
     setRecords({ ...records, [e.target.name]: e.target.value })
   }
 
   if (timeIn.length !== 0 && timeOut.length === 0) {
+    // store data from autosave data
     storeData({
       title,
       body,
       timeIn,
-      timeOut: ''
+      timeOut: '',
+      privacy
     })
   } else if (timeIn.length !== 0 && timeOut.length !== 0) {
     storeData({
       title,
       body,
       timeIn,
-      timeOut
+      timeOut,
+      privacy
     })
   }
 
@@ -72,6 +90,7 @@ const RecordForm = () => {
     setStoreData()
     records.title = collection.title
     records.body = collection.body
+    records.privacy = collection.privacy
   }
 
   const onSubmit = e => {
@@ -85,13 +104,15 @@ const RecordForm = () => {
       title,
       body,
       timeIn,
-      timeOut
+      timeOut,
+      privacy
     }
 
     if (record.length !== 0) {
       // only body and title will be updated
       record.title = records.title
       record.body = records.body
+      record.privacy = records.privacy
       updateData(record)
     } else {
       addData(data)
@@ -102,6 +123,10 @@ const RecordForm = () => {
   const clearTime = () => {
     setRecords({ title: '', timeInV: '', timeOutV: '', body: '' })
     clearAll()
+  }
+
+  const onSiteChanged = e => {
+    records.privacy = e.target.value
   }
 
   return (
@@ -137,6 +162,30 @@ const RecordForm = () => {
           value={timeOutV}
           readOnly
         />
+        <p style={{ padding: '3%' }}>
+          <input
+            type='radio'
+            name='privacy'
+            id='public'
+            value='public'
+            onChange={onSiteChanged}
+            checked={privacy === 'public'}
+          />
+          <label htmlFor='public' className='mr-3'>
+            {' '}
+            Public
+          </label>
+
+          <input
+            type='radio'
+            name='privacy'
+            id='private'
+            value='private'
+            checked={privacy === 'private'}
+            onChange={onSiteChanged}
+          />
+          <label htmlFor='private'> Private</label>
+        </p>
 
         <label htmlFor='inputComment'>Notes:</label>
         <CKEditor
@@ -144,14 +193,12 @@ const RecordForm = () => {
           data={body}
           onInit={editor => {
             // You can store the "editor" and use when it is needed.
-            console.log('Editor is ready to use!', editor)
           }}
           onChange={(event, editor) => {
             const data = editor.getData()
             records.body = data
           }}
         />
-
         <div className='d-flex flex-column'>
           {record.length === 0 ? (
             <ButtonGroup className='m-3'>

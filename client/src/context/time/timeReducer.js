@@ -10,7 +10,8 @@ import {
   GET_SPECIFIC_DATA,
   DELETE_RECORD,
   UPDATE_DATA,
-  GET_STORE_DATA
+  GET_STORE_DATA,
+  GET_PUBLIC_DATA
 } from '../types'
 
 export default (state, action) => {
@@ -42,7 +43,11 @@ export default (state, action) => {
         timeIn: action.payload.timeIn,
         timeOut: action.payload.timeOut
       }
-
+    case GET_PUBLIC_DATA:
+      return {
+        ...state,
+        privacy: action.payload
+      }
     case UPDATE_DATA:
       return {
         ...state,

@@ -3,6 +3,7 @@ import AuthContext from '../context/auth/authContext'
 import SecondNavbar from '../components/layouts/SecondNavbar'
 import RecordForm from '../components/records/RecordForm'
 import Record from '../components/records/Record'
+import { Link } from 'react-router-dom'
 
 const Home = () => {
   const authContext = useContext(AuthContext)
@@ -14,8 +15,14 @@ const Home = () => {
   }, [])
 
   return (
-    <div>
+    <div className='mb-5'>
       <SecondNavbar />
+      <div className='text-right'>
+        <Link to='/all'>
+          <span>View all public records</span>
+        </Link>
+      </div>
+
       <div className='row'>
         <div className='col-sm-7 text-center bg-light'>
           <RecordForm />

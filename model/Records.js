@@ -22,7 +22,10 @@ const RecordSchema = mongoose.Schema({
     type: String
   },
   privacy: {
-    type: Boolean
+    type: String
+  },
+  userName: {
+    type: String
   },
   date: {
     type: Date,

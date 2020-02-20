@@ -31,6 +31,7 @@ router.post('/', auth, async (req, res) => {
     'body',
     'timeIn',
     'timeOut',
+    'privacy',
     'user',
     '__v'
   ]
@@ -42,7 +43,7 @@ router.post('/', auth, async (req, res) => {
     console.log('validation error')
     return res.status(400).send({ msg: 'error updates' })
   }
-  const { title, body, timeIn, timeOut } = req.body
+  const { title, body, timeIn, timeOut, privacy } = req.body
   try {
     const autoSave = await AutoSave.findOne({
       user: req.user.id
@@ -54,6 +55,8 @@ router.post('/', auth, async (req, res) => {
           title,
           body,
           timeIn,
+          timeOut,
+          privacy,
           user: req.user.id
         })
         await authSave.save()

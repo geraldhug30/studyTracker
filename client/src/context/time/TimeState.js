@@ -15,7 +15,8 @@ import {
   GET_SPECIFIC_DATA,
   DELETE_RECORD,
   UPDATE_DATA,
-  GET_STORE_DATA
+  GET_STORE_DATA,
+  GET_PUBLIC_DATA
 } from '../types'
 import { date } from '../../components/DateAndTime'
 
@@ -28,6 +29,7 @@ const TimeState = props => {
     time: null,
     timeIn: '',
     timeOut: '',
+    privacy: null,
     duration: null,
     collection: [],
     records: [],
@@ -47,6 +49,19 @@ const TimeState = props => {
       payload: time
     })
   }
+
+  const getPublicData = async () => {
+    try {
+      const res = await axios.get('api/records/all')
+      dispatch({
+        type: GET_PUBLIC_DATA,
+        payload: res.data
+      })
+    } catch (error) {
+      setError(error)
+    }
+  }
+
   const getData = async () => {
     try {
       const res = await axios.get('api/records')
@@ -211,6 +226,7 @@ const TimeState = props => {
         loading: state.loading,
         bodyA: state.body,
         titleA: state.title,
+        privacy: state.privacy,
         setTime,
         setTimeIn,
         setTimeOut,
@@ -222,7 +238,8 @@ const TimeState = props => {
         deleteItem,
         updateData,
         getLocalData,
-        setStoreData
+        setStoreData,
+        getPublicData
       }}
     >
       {props.children}

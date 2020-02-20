@@ -14,7 +14,7 @@ const RecordResult = props => {
   const authContext = useContext(AuthContext)
   const alertContext = useContext(AlertContext)
   const { record, loading, deleteItem, clearAll } = timeContext
-  const { _id, title, body, timeIn, timeOut, date, duration } = record
+  const { _id, title, body, timeIn, timeOut, date, duration, privacy } = record
 
   if (authContext.isAuthenticated === null && loading) props.history.push('/')
 
@@ -70,6 +70,10 @@ const RecordResult = props => {
             <tr>
               <th>Duration:</th>
               <td>{minutes} minutes</td>
+            </tr>
+            <tr>
+              <th>Privacy type:</th>
+              <td>{privacy}</td>
             </tr>
             <tr>
               <th className='text-nowrap'>Date Created:</th>

@@ -1,5 +1,5 @@
 import React, { Fragment, useContext } from 'react'
-import { Card, Button } from 'react-bootstrap'
+import { Card, Button, Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import TimeContext from '../../context/time/timeContext'
 var HtmlToReactParser = require('html-to-react').Parser
@@ -10,7 +10,7 @@ const RecordItem = item => {
   const timeContext = useContext(TimeContext)
   const { getSpecificData } = timeContext
 
-  const { _id, title, timeIn, timeOut, body } = item.props
+  const { _id, title, timeIn, timeOut, body, privacy } = item.props
   // parse html
   var reactElement = htmlToReactParser.parse(body)
   const getRecord = async () => {
@@ -19,7 +19,21 @@ const RecordItem = item => {
   return (
     <Fragment>
       <Card bg='secondary' text='white'>
-        <Card.Header>{title}</Card.Header>
+        <Card.Header>
+          {' '}
+          <Row>
+            <Col sm={8}>{title}</Col>
+            <Col
+              sm={4}
+              className={
+                'badge ' +
+                (privacy === 'public' ? 'badge-success' : 'badge-primary')
+              }
+            >
+              {privacy.charAt(0).toUpperCase() + privacy.slice(1)}
+            </Col>
+          </Row>
+        </Card.Header>
         <Card.Body>
           <Card.Title>
             {timeIn} to {timeOut}

@@ -5,6 +5,21 @@ const Records = require('../model/Records')
 const { check, validationResult, sanitizeBody } = require('express-validator')
 //Crud
 
+// @route GET api/records/All
+// @desc Get all public records
+// @access Private
+
+router.get('/All', auth, async (req, res) => {
+  try {
+    const records = await Records.find({ privacy: 'public' }).sort({
+      date: -1
+    })
+    return res.send(records)
+  } catch (error) {
+    return res.send(error)
+  }
+})
+
 // @route GET api/records
 // @desc  Get Records
 // @access Private
@@ -57,7 +72,7 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() })
     }
-    const { title, body, timeIn, timeOut, duration } = req.body
+    const { title, body, timeIn, timeOut, duration, privacy } = req.body
 
     try {
       const records = new Records({
@@ -65,7 +80,9 @@ router.post(
         body,
         timeIn,
         timeOut,
+        privacy,
         duration,
+        userName: req.user.name,
         user: req.user.id
       })
       await records.save()
@@ -103,6 +120,7 @@ router.put(
       'timeIn',
       'timeOut',
       'duration',
+      'privacy',
       'user',
       'date',
       '__v'
