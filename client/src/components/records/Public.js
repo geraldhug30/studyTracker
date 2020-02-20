@@ -30,7 +30,7 @@ const Public = props => {
   return (
     <Container>
       <Row className=' m-3'>
-        <Col sm={1} className='text-justify'>
+        <Col sm={1} className='text-center'>
           <Link to='/'>
             <Button variant='dark'>Back</Button>
           </Link>

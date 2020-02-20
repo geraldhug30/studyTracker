@@ -2,8 +2,8 @@ import React from 'react'
 import { Container } from 'react-bootstrap'
 const About = () => {
   return (
-    <Container className='text-center m-3'>
-      <h1 className='text-center m-5'>
+    <Container className='text-center mb-5'>
+      <h1 className='text-center m-4'>
         Study{' '}
         <span
           className='bg-info text-light'
