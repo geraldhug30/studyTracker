@@ -46,6 +46,9 @@ const RecordItem = item => {
 
           <Link to='/record'>
             <Button onClick={getRecord} className='bg-info' block>
+              <span>
+                <i class='fas fa-digital-tachograph'></i>
+              </span>{' '}
               More...
             </Button>
           </Link>

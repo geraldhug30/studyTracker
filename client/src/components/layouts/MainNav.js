@@ -11,6 +11,9 @@ const MainNav = () => {
     <Fragment>
       <Navbar>
         <Navbar.Brand>
+          <span className='text-info'>
+            <i class='fab fa-studiovinari'></i>
+          </span>{' '}
           Study{' '}
           <strong
             className='bg-info text-light'
@@ -26,7 +29,11 @@ const MainNav = () => {
             <span>
               {authContext.isAuthenticated ? (
                 <span>
-                  Signed in as: <Link to='/'>{user ? user.name : 'User'}</Link>
+                  <Link to='/'>
+                    {user
+                      ? user.name.charAt(0).toUpperCase() + user.name.slice(1)
+                      : 'User'}
+                  </Link>
                   <span>
                     {' | '}
                     <Link

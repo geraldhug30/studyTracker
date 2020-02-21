@@ -187,7 +187,7 @@ const RecordForm = () => {
           <label htmlFor='private'> Private</label>
         </p>
 
-        <label htmlFor='inputComment'>Notes:</label>
+        <label htmlFor='inputComment'> Notes:</label>
         <CKEditor
           editor={ClassicEditor}
           data={body}
@@ -205,22 +205,22 @@ const RecordForm = () => {
               {timeIn.length === 0 ? (
                 <Fragment>
                   <Button className='btn-success' onClick={setTimeIn}>
-                    Start
+                    <i class='fas fa-play'></i>
                   </Button>
                   {collection.length !== 0 && (
                     <Button className='btn-primary' onClick={restoreData}>
-                      Restore
+                      <i class='fas fa-hourglass-start'></i>
                     </Button>
                   )}
                 </Fragment>
               ) : (
                 <Button className='btn-danger' onClick={setTimeOut}>
-                  Stop
+                  <i class='fas fa-stop '></i>
                 </Button>
               )}
               {timeIn.length !== 0 && (
                 <Button type='submit' onClick={clearTime} className='btn-dark'>
-                  Clear
+                  <i class='fas fa-trash-alt'></i>
                 </Button>
               )}
               {timeIn.length !== 0 && timeOut.length !== 0 && (

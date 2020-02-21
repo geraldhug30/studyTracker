@@ -20,7 +20,10 @@ const Home = () => {
       <SecondNavbar />
       <div className='text-right'>
         <Link to='/all'>
-          <span>View all public records</span>
+          <span>
+            {' '}
+            <i class='fas fa-users'></i> View all public records
+          </span>
         </Link>
       </div>
 

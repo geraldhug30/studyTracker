@@ -31,7 +31,12 @@ const Record = () => {
 
   return (
     <Fragment>
-      <h3>Saved Notes:</h3>
+      <h3>
+        <span className='text-warning'>
+          <i class='far fa-sticky-note'></i>
+        </span>{' '}
+        Saved Notes:
+      </h3>
       <div style={{ overflow: 'auto', height: '510px' }}>
         {records.length === 0 ? (
           <p> Add your first note here </p>

@@ -32,7 +32,9 @@ const Public = props => {
       <Row className=' m-3'>
         <Col sm={1} className='text-center'>
           <Link to='/'>
-            <Button variant='dark'>Back</Button>
+            <Button variant='dark' className='m-3'>
+              Back
+            </Button>
           </Link>
         </Col>
         <Col sm={11}>
