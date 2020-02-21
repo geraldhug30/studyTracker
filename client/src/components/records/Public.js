@@ -28,7 +28,7 @@ const Public = props => {
   }
 
   return (
-    <Container>
+    <Container className='mb-5'>
       <p className='m-3'>
         <Link to='/'>
           <Button variant='dark'>Back</Button>
