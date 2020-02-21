@@ -2,17 +2,13 @@ import React, { Fragment, useContext } from 'react'
 import { Card, Button, Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import TimeContext from '../../context/time/timeContext'
-var HtmlToReactParser = require('html-to-react').Parser
 
 const RecordItem = item => {
-  var htmlToReactParser = new HtmlToReactParser()
-
   const timeContext = useContext(TimeContext)
   const { getSpecificData } = timeContext
-
-  const { _id, title, timeIn, timeOut, body, privacy } = item.props
+  const { _id, title, timeIn, timeOut, privacy } = item.props
   // parse html
-  var reactElement = htmlToReactParser.parse(body)
+
   const getRecord = async () => {
     await getSpecificData(_id)
   }

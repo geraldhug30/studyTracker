@@ -20,7 +20,7 @@ const PublicRecord = ({ props }) => {
   const result = taskDate(dateCreated)
 
   return (
-    <Card className='mb-5'>
+    <Card className='mb-1'>
       <Card.Header>
         <strong>{title}</strong>
       </Card.Header>

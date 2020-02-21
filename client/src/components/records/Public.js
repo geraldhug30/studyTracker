@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react'
-import { Container, Row, Col, Button } from 'react-bootstrap'
+import { Container, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import PublicRecords from './PublicRecord'
 import TimeContext from '../../context/time/timeContext'
@@ -29,19 +29,21 @@ const Public = props => {
 
   return (
     <Container>
-      <Row className=' m-3'>
-        <Col sm={1} className='text-center'>
-          <Link to='/'>
-            <Button variant='dark' className='m-3'>
-              Back
-            </Button>
-          </Link>
-        </Col>
-        <Col sm={11}>
-          {privacy !== null &&
-            privacy.map(data => <PublicRecords props={data} key={data._id} />)}
-        </Col>
-      </Row>
+      <p className='m-3'>
+        <Link to='/'>
+          <Button variant='dark'>Back</Button>
+        </Link>
+      </p>
+      <p> All Public Records: </p>
+      <p className='text-center'>
+        {privacy !== null &&
+          privacy.map(data => (
+            <div>
+              <hr />
+              <PublicRecords props={data} key={data._id} />
+            </div>
+          ))}
+      </p>
     </Container>
   )
 }
