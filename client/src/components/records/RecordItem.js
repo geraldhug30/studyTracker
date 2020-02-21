@@ -18,11 +18,13 @@ const RecordItem = item => {
   }
   return (
     <Fragment>
-      <Card bg='secondary' text='white'>
+      <Card bg='light' text='gray'>
         <Card.Header>
           {' '}
           <Row>
-            <Col sm={8}>{title}</Col>
+            <Col sm={8}>
+              <strong>{title}</strong>
+            </Col>
             <Col
               sm={4}
               className={
@@ -35,10 +37,13 @@ const RecordItem = item => {
           </Row>
         </Card.Header>
         <Card.Body>
-          <Card.Title>
-            {timeIn} to {timeOut}
-          </Card.Title>
-          <Card.Text>{reactElement}</Card.Text>
+          <p>
+            <strong className='text-success'>Starting</strong> {timeIn}
+          </p>
+          <p>
+            <strong className='text-danger'>End </strong> {timeOut}
+          </p>
+
           <Link to='/record'>
             <Button onClick={getRecord} className='bg-info' block>
               More...

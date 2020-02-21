@@ -4,6 +4,7 @@ import SecondNavbar from '../components/layouts/SecondNavbar'
 import RecordForm from '../components/records/RecordForm'
 import Record from '../components/records/Record'
 import { Link } from 'react-router-dom'
+import RecordFilter from '../components/records/RecordFilter'
 
 const Home = () => {
   const authContext = useContext(AuthContext)
@@ -28,6 +29,7 @@ const Home = () => {
           <RecordForm />
         </div>
         <div className='col-sm-5 bg-light'>
+          <RecordFilter />
           <Record />
         </div>
       </div>

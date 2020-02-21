@@ -1,13 +1,14 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, Fragment } from 'react'
 import RecordItem from './RecordItem'
 import TimeContext from '../../context/time/timeContext'
 import { Spinner } from 'react-bootstrap'
+
 // import Spinner from '../layouts/Spinner'
 // import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
 const Record = () => {
   const timeContext = useContext(TimeContext)
-  const { getData, records, user, loading } = timeContext
+  const { getData, records, user, loading, filtered } = timeContext
 
   useEffect(() => {
     getData()
@@ -29,11 +30,18 @@ const Record = () => {
   }
 
   return (
-    <div style={{ overflow: 'auto', height: '510px' }}>
-      <h3>History</h3>
-      {records.length !== 0 &&
-        records.map(record => <RecordItem props={record} key={record._id} />)}
-    </div>
+    <Fragment>
+      <h3>Saved Notes:</h3>
+      <div style={{ overflow: 'auto', height: '510px' }}>
+        {records.length === 0 ? (
+          <p> Add your first note here </p>
+        ) : filtered !== null ? (
+          filtered.map(record => <RecordItem props={record} key={record._id} />)
+        ) : (
+          records.map(record => <RecordItem props={record} key={record._id} />)
+        )}
+      </div>
+    </Fragment>
   )
 }
 

@@ -11,7 +11,9 @@ import {
   DELETE_RECORD,
   UPDATE_DATA,
   GET_STORE_DATA,
-  GET_PUBLIC_DATA
+  GET_PUBLIC_DATA,
+  FILTER_RECORDS,
+  CLEAR_FILTER
 } from '../types'
 
 export default (state, action) => {
@@ -84,6 +86,20 @@ export default (state, action) => {
         timeOut: [],
         record: [],
         collection: []
+      }
+
+    case FILTER_RECORDS:
+      return {
+        ...state,
+        filtered: state.records.filter(record => {
+          const regex = new RegExp(`${action.payload}`, 'gi')
+          return record.title.match(regex) || record.privacy.match(regex)
+        })
+      }
+    case CLEAR_FILTER:
+      return {
+        ...state,
+        filtered: null
       }
     case DELETE_RECORD:
       return {

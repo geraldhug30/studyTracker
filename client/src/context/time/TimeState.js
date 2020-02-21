@@ -16,7 +16,9 @@ import {
   DELETE_RECORD,
   UPDATE_DATA,
   GET_STORE_DATA,
-  GET_PUBLIC_DATA
+  GET_PUBLIC_DATA,
+  CLEAR_FILTER,
+  FILTER_RECORDS
 } from '../types'
 import { date } from '../../components/DateAndTime'
 
@@ -35,6 +37,7 @@ const TimeState = props => {
     records: [],
     record: [],
     error: null,
+    filtered: null,
     loading: true
   }
 
@@ -175,7 +178,13 @@ const TimeState = props => {
       })
     }
   }
-
+  // Filter data
+  const filterRecord = text => {
+    dispatch({ type: FILTER_RECORDS, payload: text })
+  }
+  const clearFilter = () => {
+    dispatch({ type: CLEAR_FILTER })
+  }
   //local save data
   const storeData = async data => {
     const config = {
@@ -227,6 +236,7 @@ const TimeState = props => {
         bodyA: state.body,
         titleA: state.title,
         privacy: state.privacy,
+        filtered: state.filtered,
         setTime,
         setTimeIn,
         setTimeOut,
@@ -239,7 +249,9 @@ const TimeState = props => {
         updateData,
         getLocalData,
         setStoreData,
-        getPublicData
+        getPublicData,
+        filterRecord,
+        clearFilter
       }}
     >
       {props.children}

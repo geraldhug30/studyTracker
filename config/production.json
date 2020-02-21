@@ -1,4 +1,4 @@
 {
-  "mongoURI": "mongodb+srv://admin-gerald:Arvato123!@cluster0-z6aus.mongodb.net/StudyTracker",
+  "mongoURI": "mongodb+srv://gerald123:t2BEfS2j5331VthR@cluster0-zmcsi.mongodb.net/StudyTracker",
   "jwtSecret": "JdHeroMikeJenrei"
 }

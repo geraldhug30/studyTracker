@@ -4,10 +4,8 @@ import { Container, Table, Button, ButtonGroup } from 'react-bootstrap'
 import TimeContext from '../../context/time/timeContext'
 import AlertContext from '../../context/alert/alertContext'
 import AuthContext from '../../context/auth/authContext'
-
+import ReactHtmlParser from 'react-html-parser'
 import Spinner from '../../components/layouts/Spinner'
-
-var HtmlToReactParser = require('html-to-react').Parser
 
 const RecordResult = props => {
   const timeContext = useContext(TimeContext)
@@ -45,17 +43,16 @@ const RecordResult = props => {
   // convert duration to minute
   const minutes = Math.floor(duration / 60)
 
-  var htmlToReactParser = new HtmlToReactParser()
-  var reactElement = htmlToReactParser.parse(body)
-
   return (
     <Container>
       {title ? (
-        <Table variant='light' className='mt-5' striped bordered hover>
+        <Table variant='light' className='mt-5 mb-5' striped bordered hover>
           <thead>
             <tr>
               <th>Title: </th>
-              <th>{title}</th>
+              <th>
+                <strong>{title}</strong>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -81,7 +78,9 @@ const RecordResult = props => {
             </tr>
             <tr>
               <th>Body</th>
-              <td>{reactElement}</td>
+              <td>
+                <p>{ReactHtmlParser(body)}</p>
+              </td>
             </tr>
             <tr>
               <td>

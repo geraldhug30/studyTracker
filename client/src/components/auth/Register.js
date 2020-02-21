@@ -33,7 +33,7 @@ const Register = props => {
       setAlert('password not match', 'light')
       return
     }
-    console.log(password.length)
+
     if (password.length < 5)
       return setAlert('Password must be 5 character or more...', 'danger')
     if (error) return setAlert(error, 'danger')
