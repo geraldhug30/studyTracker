@@ -35,7 +35,7 @@ const Public = props => {
         </Link>
       </p>
       <p> All Public Records: </p>
-      <p className='text-center'>
+      <p>
         {privacy !== null &&
           privacy.map(data => (
             <div>

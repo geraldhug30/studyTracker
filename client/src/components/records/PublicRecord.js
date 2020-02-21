@@ -21,13 +21,13 @@ const PublicRecord = ({ props }) => {
 
   return (
     <Card className='mb-1'>
-      <Card.Header>
+      <Card.Header className='text-center'>
         <strong>{title}</strong>
       </Card.Header>
       <Card.Body>
         <Card.Text>{reactElement}</Card.Text>
       </Card.Body>
-      <Card.Footer className='text-muted'>{result}</Card.Footer>
+      <Card.Footer className='text-muted text-center'>{result}</Card.Footer>
     </Card>
   )
 }

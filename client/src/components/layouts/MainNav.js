@@ -20,8 +20,7 @@ const MainNav = () => {
             style={{ padding: '5px', borderRadius: '10px' }}
           >
             Tracker
-          </strong>{' '}
-          2020
+          </strong>
         </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className='justify-content-end'>
