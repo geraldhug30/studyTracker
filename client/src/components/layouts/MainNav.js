@@ -12,7 +12,7 @@ const MainNav = () => {
       <Navbar>
         <Navbar.Brand>
           <span className='text-info'>
-            <i class='fab fa-studiovinari'></i>
+            <i className='fab fa-studiovinari'></i>
           </span>{' '}
           Study{' '}
           <strong
