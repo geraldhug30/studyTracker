@@ -2,7 +2,6 @@ const app = require('express')
 const router = app.Router()
 const auth = require('../middleware/auth')
 const AutoSave = require('../model/autoSave')
-const { check, validationResult } = require('express-validator')
 
 // @route POST api/authUser
 // @desc  Create autosave

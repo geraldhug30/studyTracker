@@ -1,20 +1,24 @@
-import React from 'react'
+import React, { Suspense, lazy } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import Home from './pages/Home'
-import About from './pages/About'
 import { Container } from 'react-bootstrap'
+// Components
+import Spinner from './components/layouts/Spinner'
+import PrivateRoute from './components/routing/PrivateRoute'
+import setAuthToken from './components/utils/setAuthToken'
+import MainNav from './components/layouts/MainNav'
+import Footer from './components/layouts/Footer'
+// Context
 import TimeState from './context/time/TimeState'
 import AuthState from './context/auth/AuthState'
 import AlertState from './context/alert/AlertState'
-import Login from './components/auth/Login'
-import Register from './components/auth/Register'
-import Public from './components/records/Public'
-import MainNav from './components/layouts/MainNav'
-import Footer from './components/layouts/Footer'
-import PrivateRoute from './components/routing/PrivateRoute'
-import setAuthToken from './components/utils/setAuthToken'
-import RecordResult from './components/records/RecordResult'
-import NotFound from './pages/NotFound'
+// Code Seperating Links
+const Login = lazy(() => import('./components/auth/Login'))
+const Home = lazy(() => import('./pages/Home'))
+const About = lazy(() => import('./pages/About'))
+const NotFound = lazy(() => import('./pages/NotFound'))
+const Public = lazy(() => import('./components/records/Public'))
+const Register = lazy(() => import('./components/auth/Register'))
+const RecordResult = lazy(() => import('./components/records/RecordResult'))
 
 if (localStorage.token) {
   setAuthToken(localStorage.token)
@@ -27,16 +31,17 @@ function App() {
           <Container fluid>
             <Router>
               <MainNav />
-
-              <Switch>
-                <PrivateRoute exact path='/' component={Home} />
-                <Route exact path='/about' component={About} />
-                <Route exact path='/login' component={Login} />
-                <Route exact path='/register' component={Register} />
-                <Route exact path='/record' component={RecordResult} />
-                <Route exact path='/all' component={Public} />
-                <Route exact path='/*' component={NotFound} />
-              </Switch>
+              <Suspense fallback={<Spinner />}>
+                <Switch>
+                  <PrivateRoute exact path='/' component={Home} />
+                  <Route exact path='/about' component={About} />
+                  <Route exact path='/login' component={Login} />
+                  <Route exact path='/register' component={Register} />
+                  <Route exact path='/record' component={RecordResult} />
+                  <Route exact path='/all' component={Public} />
+                  <Route exact path='/*' component={NotFound} />
+                </Switch>
+              </Suspense>
             </Router>
             <Footer />
           </Container>

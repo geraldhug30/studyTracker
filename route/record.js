@@ -14,9 +14,12 @@ router.get('/All', auth, async (req, res) => {
     const records = await Records.find({ privacy: 'public' }).sort({
       date: -1
     })
-    return res.send(records)
+    return res.status(200).json(records)
   } catch (error) {
-    return res.send(error)
+    console.log(error)
+    return res
+      .status(500)
+      .json({ msg: 'Server Error! Please check connection' })
   }
 })
 
@@ -29,11 +32,10 @@ router.get('/', auth, async (req, res) => {
     const records = await Records.find({ user: req.user.id }).sort({
       date: -1
     })
-    if (!records) res.send('No record Found')
-
-    res.json(records)
+    if (!records) return res.status(404).json({ msg: 'No record Found' })
+    return res.json(records)
   } catch (err) {
-    res.status(500).send('Server error')
+    return res.status(500).send('Server error')
   }
 })
 
@@ -44,11 +46,12 @@ router.get('/', auth, async (req, res) => {
 router.get('/:id', auth, async (req, res) => {
   try {
     const records = await Records.findOne({ _id: req.params.id })
-    if (!records) res.send('No record Found')
-
+    if (!records) return res.status(404).json({ msg: 'No record Found' })
     res.json(records)
   } catch (err) {
-    res.status(500).send('Server error')
+    return res
+      .status(500)
+      .json({ msg: 'Server Error! Please check connection' })
   }
 })
 
@@ -86,9 +89,9 @@ router.post(
         user: req.user.id
       })
       await records.save()
-      return res.send(records)
+      return res.status(200).json(records)
     } catch (error) {
-      res.status(500).json({ msg: 'Server Error' })
+      res.status(500).json({ msg: 'Server Error! Please check connection' })
     }
   }
 )
@@ -156,7 +159,7 @@ router.put(
         console.log(err)
       })
 
-      res.status(200).send(records)
+      res.status(200).json(records)
     } catch (err) {
       console.log(err)
       return res.status(400).send(err)
@@ -172,9 +175,9 @@ router.delete('/:id', auth, async (req, res) => {
   try {
     const id = req.params.id
     await Records.findByIdAndDelete(id)
-    res.send('deleted')
+    res.status(202).json({ msg: 'deleted' })
   } catch (error) {
-    res.status(500).send('server error')
+    res.status(500).json({ msg: 'Server Error! Please check your connection.' })
   }
 })
 

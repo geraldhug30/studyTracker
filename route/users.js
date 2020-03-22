@@ -37,7 +37,7 @@ router.post(
   async (req, res) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
-      return res.status(422).json({ msg: 'Invalid Input' })
+      return res.status(422).json({ msg: errors })
     }
     const { name, email, password } = req.body
 
@@ -69,12 +69,12 @@ router.post(
         { expiresIn: 360000 },
         (err, token) => {
           if (err) throw err
-          return res.json({ token })
+          return res.status(200).json({ token })
         }
       )
     } catch (error) {
       if (error) console.log(error)
-      return res.status(500).send('Server Error')
+      return res.status(500).json({ msg: 'Server Error' })
     }
   }
 )

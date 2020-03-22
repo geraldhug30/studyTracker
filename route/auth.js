@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken')
 const config = require('config')
 const User = require('../model/Users')
 const auth = require('../middleware/auth')
-const { check, validationResult, sanitizeBody } = require('express-validator')
+const { check, validationResult } = require('express-validator')
 
 // @route   GET api/auth
 // @desc    Get login user
@@ -31,16 +31,17 @@ router.post(
       .isEmail()
       .notEmpty()
       .normalizeEmail(),
-    check('password', 'password is required')
+    check('password')
       .notEmpty()
       .isLength({ min: 5 })
+      .withMessage('Password must be 5 character or more!')
       .trim()
       .escape()
   ],
   async (req, res) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
-      return res.status(422).json({ msg: 'Invalid Credential' })
+      return res.status(403).json({ msg: errors })
     }
 
     const { email, password } = req.body
@@ -64,12 +65,11 @@ router.post(
         { expiresIn: 360000 },
         (err, token) => {
           if (err) throw err
-          return res.json({ token })
+          return res.status(200).json({ token })
         }
       )
     } catch (error) {
-      if (error) console.log(error)
-      res.status(500).send('server error')
+      res.status(500).json({ msg: 'Server error!' })
     }
   }
 )
